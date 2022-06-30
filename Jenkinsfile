@@ -1,14 +1,16 @@
 podTemplate(containers: [containerTemplate(name: 'maven', image: 'maven', command: 'sleep', args: 'infinity')]) {
   node(POD_LABEL) {
-    checkout scm
     container('maven') {
-      
+        stage('SCM') {
+            checkout scm
+        }  
+         
         stage('Build') {
             sh 'mvn -B -DskipTests clean package'
         }
 
         stage('Test') {
-            sh 'mvn -Dmaven.test.failure.ignore jacoco:prepare-agent verify jacoco:report'
+            sh 'mvn -Dmaven.test.failure.ignore verify'
             junit 'target/surefire-reports/*.xml'
         }
         
@@ -18,6 +20,5 @@ podTemplate(containers: [containerTemplate(name: 'maven', image: 'maven', comman
             }
         }
     }
-//     junit '**/target/surefire-reports/TEST-*.xml'
   }
 }
