@@ -8,7 +8,7 @@ podTemplate(containers: [containerTemplate(name: 'maven', image: 'maven', comman
         }
 
         stage('Test') {
-            sh 'mvn -Dmaven.test.failure.ignore verify'
+            sh 'mvn -Dmaven.test.failure.ignore jacoco:prepare-agent verify jacoco:report'
             junit 'target/surefire-reports/*.xml'
         }
         
