@@ -9,7 +9,7 @@ podTemplate(containers: [containerTemplate(name: 'maven', image: 'maven', comman
 
         stage('Test') {
             sh 'mvn -Dmaven.test.failure.ignore verify'
-            // junit 'target/surefire-reports/*.xml'
+            junit 'target/surefire-reports/*.xml'
         }
         
         stage('SonarQube Analytics') {
