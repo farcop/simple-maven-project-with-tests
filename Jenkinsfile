@@ -15,7 +15,7 @@ podTemplate(containers: [containerTemplate(name: 'maven', image: 'maven', comman
         }
         
         stage('SonarQube Analytics') {
-            withSonarQubeEnv('sonarqube') {
+            withSonarQubeEnv() {
                 sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.0.1.3006:sonar'
             }
         }
